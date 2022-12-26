@@ -1,27 +1,34 @@
 const express = require('express');
-const { errorHandling } = require(`./middleware/errorHandling`);
-const { connectAsPool } = require('./database/dbConnect/dbConnection');
 const { config } = require('./config/env');
+const { connectAsPool } = require('./database/dbConnect/dbConnection');
+const register = require('./routes/auth');
+const { errorHandler } = require('./middleware/errorHandling');
+const cookieParser = require('cookie-parser');
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+app.use(cookieParser());
+
 connectAsPool();
 
-app.use((req, res, next) => {
+app.use(register);
+
+app.use((req, res) => {
   return res.status(404).json({
     success: false,
     error: {
       code: 404,
-      message: `Url Not Found.`,
+      message: 'Url Not Found.',
     },
   });
 });
 
-app.use(errorHandling);
+app.use(errorHandler);
 
 const port = config.serverPort || 3000;
 app.listen(port, () => {
+  /* eslint-disable */
   console.log(`Server on http://localhost:${port}`);
 });
