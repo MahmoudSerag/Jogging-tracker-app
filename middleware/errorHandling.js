@@ -1,18 +1,12 @@
-const httpErrors = require('http-errors');
-
-exports.errorHandler = (err, req, res, next) => {
+exports.errorHandler = (err, req, res) => {
   let error = { ...err };
 
   error.message = err.message;
-
-  // Mongoose bad ObjectId
-  // if (err.name === 'CastError') {
-  //   const message = `Invalid id.`;
-  //   error = new httpErrors(404, message);
-  // }
+  error.statusCode = err.statusCode;
 
   res.status(error.statusCode || 500).json({
     success: false,
+    statusCode: error.statusCode || 500,
     error: error.message || 'Server Error',
   });
 };
