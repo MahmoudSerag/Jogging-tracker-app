@@ -11,7 +11,7 @@ exports.signUp = async (body) => {
 
 exports.signIn = async (email) => {
   const user = await pool.query(
-    `SELECT email, id, password, name FROM userInfo WHERE email = $1;`,
+    `SELECT email, id, password, name, role FROM userInfo WHERE email = $1;`,
     [email]
   );
 

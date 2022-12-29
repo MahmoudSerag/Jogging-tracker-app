@@ -9,3 +9,7 @@ exports.createJWT = async function (userId, admin) {
     { expiresIn: config.JwtExpire }
   );
 };
+
+exports.verifyJWT = async function (token) {
+  return jwt.verify(token, config.JWT_privateKey);
+};
