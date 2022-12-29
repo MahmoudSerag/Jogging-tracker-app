@@ -1,7 +1,8 @@
 const express = require('express');
 const { config } = require('./config/env');
 const { connectAsPool } = require('./database/dbConnect/dbConnection');
-const register = require('./routes/auth');
+const auth = require('./routes/auth');
+const user = require('./routes/user');
 const { errorHandler } = require('./middleware/errorHandling');
 const cookieParser = require('cookie-parser');
 const app = express();
@@ -13,7 +14,8 @@ app.use(cookieParser());
 
 connectAsPool();
 
-app.use(register);
+app.use(auth);
+app.use(user);
 
 app.use((req, res) => {
   return res.status(404).json({

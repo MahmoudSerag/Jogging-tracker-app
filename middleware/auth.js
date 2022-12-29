@@ -1,31 +1,13 @@
 const httpErrors = require('http-errors');
 const asyncHandler = require('./async');
-const Joi = require('joi');
+const { inputsValidation } = require('../utils/inputsValidation');
 const bcrypt = require('bcrypt');
-const { config } = require('../config/env');
 const { signIn } = require('../database/models/auth');
 
 exports.registerValidation = asyncHandler(async (req, res, next) => {
   const { email, name, password } = req.body;
 
-  const userValidation = Joi.object({
-    name: Joi.string().alphanum().min(3).max(30).required(),
-    email: Joi.string()
-      .required()
-      .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
-    password: Joi.string()
-      .min(8)
-      .max(32)
-      .required()
-      .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
-  });
-
-  const isValid = await userValidation.validate({ email, name, password });
-  if (isValid.error)
-    return next(new httpErrors(400, `Bad request ${isValid.error.message}`));
-
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
+  const hashedPassword = await inputsValidation(email, name, password, next);
 
   req.user = { password: hashedPassword, name, email };
 
@@ -41,9 +23,11 @@ exports.loginValidation = asyncHandler(async (req, res, next) => {
 
   const user = await signIn(email);
 
-  if (!user.length) return next(new httpErrors(404, 'Invalid credentials.'));
+  if (!user.length) {
+    return next(new httpErrors(404, 'Invalid credentials.'));
+  }
 
-  if (user[0].email === config.adminEmail) admin = true;
+  if (user[0].role === 'admin') admin = true;
   else admin = false;
 
   const matchPassword = await bcrypt.compare(password, user[0].password);
@@ -60,7 +44,7 @@ exports.loginValidation = asyncHandler(async (req, res, next) => {
   next();
 });
 
-exports.logoutValidation = asyncHandler(async (req, res, next) => {
+exports.logoutValidation = asyncHandler((req, res, next) => {
   if (!req.cookies.token)
     return next(new httpErrors(400, `Already logged out.`));
 
