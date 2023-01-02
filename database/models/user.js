@@ -54,3 +54,13 @@ exports.bulkDelete = async (body) => {
 
   return { exist, notExist };
 };
+
+exports.addAdminUser = async (id) => {
+  let role = 'admin';
+  const user = await pool.query(
+    `UPDATE userInfo SET role = $1 WHERE id = $2 RETURNING*;`,
+    [role, id]
+  );
+
+  return user.rows;
+};

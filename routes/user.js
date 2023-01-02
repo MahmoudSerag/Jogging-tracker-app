@@ -7,6 +7,7 @@ const {
   updateUserById,
   deleteManyUsers,
   updateManyUsers,
+  addNewAdmin,
 } = require('../controller/user');
 const {
   isLoggedIn,
@@ -48,6 +49,14 @@ router.delete(
   isAdmin,
   deleteManyIfValid,
   deleteManyUsers
+);
+
+router.post(
+  '/api/v1/user/addAdmin/:userId',
+  isLoggedIn,
+  isAdmin,
+  acceptIfUserAuthorized,
+  addNewAdmin
 );
 
 router.patch('/api/v1/updateManyUsers', isLoggedIn, isAdmin, updateManyUsers);
