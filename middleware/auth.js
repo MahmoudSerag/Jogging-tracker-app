@@ -1,13 +1,13 @@
 const httpErrors = require('http-errors');
 const asyncHandler = require('./async');
-const { inputsValidation } = require('../utils/inputsValidation');
+const { validateInputs } = require('../utils/inputsValidation');
 const bcrypt = require('bcrypt');
 const { signIn } = require('../database/models/auth');
 
 exports.registerValidation = asyncHandler(async (req, res, next) => {
   const { email, name, password } = req.body;
 
-  const hashedPassword = await inputsValidation(email, name, password, next);
+  const hashedPassword = await validateInputs(email, name, password, next);
 
   req.user = { password: hashedPassword, name, email };
 

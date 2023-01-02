@@ -3,6 +3,7 @@ const { config } = require('./config/env');
 const { connectAsPool } = require('./database/dbConnect/dbConnection');
 const auth = require('./routes/auth');
 const user = require('./routes/user');
+const jogging = require('./routes/jogging');
 const { errorHandler } = require('./middleware/errorHandling');
 const cookieParser = require('cookie-parser');
 const app = express();
@@ -16,6 +17,7 @@ connectAsPool();
 
 app.use(auth);
 app.use(user);
+app.use(jogging);
 
 app.use((req, res) => {
   return res.status(404).json({

@@ -2,7 +2,7 @@ const Joi = require('joi');
 const httpErrors = require('http-errors');
 const bcrypt = require('bcrypt');
 
-exports.inputsValidation = async (email, name, password, next) => {
+exports.validateInputs = async (email, name, password, next) => {
   const inputs = Joi.object({
     name: Joi.string().alphanum().min(3).max(30).required(),
     email: Joi.string()
