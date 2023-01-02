@@ -1,30 +1,30 @@
-#joggingtracker-APP
+# joggingtracker-APP
 
-Local Setup
---------------
-1.Install Node.js
-2.Install MongoDB
-3.Install git
+## Local Setup
 
-Clone the repository
-----------------------
-$ git clone https://github.com/MahmoudSerag/jogging-tracker-app.git
+1. Install Node.js
+2. Install postgres
+3. Install git
 
-cd to the repository directory
-cd joggingtracker-APP
+## Clone the repository
 
-Install dependencies
-npm install
+git clone <https://github.com/MahmoudSerag/jogging-tracker-app.git>
 
-Create env.js file
-cd config/env.js
+1. cd to the repository directory
+`cd joggingtracker-APP`
 
-Run server
-npm run dev
+2. Install dependencies
+`npm install`
 
-Environment Variables
+3. Create env.js file
+`cd config/env.js`
 
-serverPort: number (example: 3000)
+4. Run server
+`npm run dev`
+
+## Environment Variables
+
+```serverPort: number (example: 3000)
 
 JWT_privateKey: string (example: 'hdasjkdhksajdhska4565@#@$!')
 
@@ -40,4 +40,4 @@ password: string: (example: 'password')
 
 databasePort: number: (5432)
 
-cookieExpireIn: string: ('30')
+cookieExpireIn: string: ('30')```
