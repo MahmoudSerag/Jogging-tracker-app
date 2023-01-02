@@ -23,12 +23,21 @@ Run server
 npm run dev
 
 Environment Variables
+
 serverPort: number (example: 3000)
+
 JWT_privateKey: string (example: 'hdasjkdhksajdhska4565@#@$!')
+
 JwtExpire: string: (example: '30d')
+
 user: string: (example: 'serag')
+
 host: string: (example: 'localhost')
+
 database: string (example: 'joggingtracker')
+
 password: string: (example: 'password')
+
 databasePort: number: (5432)
+
 cookieExpireIn: string: ('30')
