@@ -6,6 +6,7 @@ const {
   deleteUserById,
   updateUserById,
   bulkDelete,
+  addAdminUser,
 } = require('../database/models/user');
 
 exports.getAllUsers = asyncHandler(async (req, res, next) => {
@@ -63,6 +64,14 @@ exports.deleteManyUsers = asyncHandler(async (req, res) => {
       },
     ],
   });
+});
+
+exports.addNewAdmin = asyncHandler(async (req, res, next) => {
+  const user = await addAdminUser(req.params.userId);
+
+  if (!user.length) return next(new httpErrors(404, 'User Not Found.'));
+
+  res.status(200).json({ success: true, data: user });
 });
 
 exports.updateManyUsers = asyncHandler(async (req, res) => {
