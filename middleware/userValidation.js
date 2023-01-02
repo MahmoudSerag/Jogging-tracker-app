@@ -1,17 +1,7 @@
 const httpErrors = require('http-errors');
 const asyncHandler = require('../middleware/async');
-const { verifyJWT } = require('./jwt');
-const { inputsValidation } = require('../utils/inputsValidation');
 const { getUserById } = require('../database/models/user');
-
-const decodeToken = async (req, res, next) => {
-  const token = req.cookies.token;
-
-  const decodedToken = await verifyJWT(token);
-  if (!decodedToken) return next(new httpErrors(401, 'Invalid token.'));
-
-  return decodedToken;
-};
+const { decodeToken } = require('./decoder');
 
 exports.isLoggedIn = asyncHandler(async (req, res, next) => {
   if (Object.keys(req.cookies).length === 0)
@@ -28,7 +18,7 @@ exports.isAmin = asyncHandler(async (req, res, next) => {
   next();
 });
 
-exports.acceptIfAuthorized = asyncHandler(async (req, res, next) => {
+exports.acceptIfUserAuthorized = asyncHandler(async (req, res, next) => {
   const decodedToken = await decodeToken(req, res, next);
 
   if (isNaN(req.params.userId) || parseInt(req.params.userId) <= 0)
@@ -59,16 +49,6 @@ exports.deleteIfValid = asyncHandler(async (req, res, next) => {
       httpOnly: true,
     });
   }
-});
-
-exports.updateIfValid = asyncHandler(async (req, res, next) => {
-  const { email, name, password } = req.body;
-
-  const hashedPassword = await inputsValidation(email, name, password, next);
-
-  req.user = { email, name, password: hashedPassword };
-
-  next();
 });
 
 exports.deleteManyIfValid = asyncHandler(async (req, res, next) => {

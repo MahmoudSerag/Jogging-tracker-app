@@ -11,25 +11,25 @@ const {
 const {
   isLoggedIn,
   isAmin,
-  acceptIfAuthorized,
+  acceptIfUserAuthorized,
   deleteIfValid,
-  updateIfValid,
   deleteManyIfValid,
 } = require('../middleware/userValidation');
+const { registerValidation } = require('../middleware/auth');
 
 router.get('/api/v1/getAllUsers', isLoggedIn, isAmin, getAllUsers);
 
 router.get(
   '/api/v1/getUserById/:userId',
   isLoggedIn,
-  acceptIfAuthorized,
+  acceptIfUserAuthorized,
   getUserById
 );
 
 router.delete(
   '/api/v1/deleteUserById/:userId',
   isLoggedIn,
-  acceptIfAuthorized,
+  acceptIfUserAuthorized,
   deleteIfValid,
   deleteUserById
 );
@@ -37,8 +37,8 @@ router.delete(
 router.patch(
   '/api/v1/updateUserById/:userId',
   isLoggedIn,
-  acceptIfAuthorized,
-  updateIfValid,
+  acceptIfUserAuthorized,
+  registerValidation,
   updateUserById
 );
 
