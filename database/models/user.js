@@ -38,16 +38,19 @@ exports.updateUserById = async (id, body) => {
   return user.rows;
 };
 
-exports.deleteMany = async (ids) => {
-  let result = [];
+exports.bulkDelete = async (body) => {
+  let exist = [],
+    notExist = [];
+  const ids = body.ids;
 
   for (let i = 0; i < ids.length; i++) {
     const user = await pool.query(
       `DELETE FROM userInfo WHERE id = $1 RETURNING*;`,
       [ids[i]]
     );
-    result.push(user.rows);
+    if (user.rows.length) exist.push(user.rows);
+    else notExist.push(ids[i]);
   }
 
-  return result;
+  return { exist, notExist };
 };

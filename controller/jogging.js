@@ -63,12 +63,12 @@ exports.deleteManyJogging = asyncHandler(async (req, res) => {
     statusCode: 204,
     data: [
       {
-        existedIds: jogging.exist,
+        existedJogging: jogging.exist,
         length: jogging.exist.length,
         message: 'Deleted Ids.',
       },
       {
-        notExistedIds: jogging.notExist,
+        notExistedJogging: jogging.notExist,
         length: jogging.notExist.length,
         message: `Not Deleted Ids.`,
       },

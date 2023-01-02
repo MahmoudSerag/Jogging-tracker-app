@@ -10,14 +10,14 @@ const {
 } = require('../controller/user');
 const {
   isLoggedIn,
-  isAmin,
+  isAdmin,
   acceptIfUserAuthorized,
   deleteIfValid,
   deleteManyIfValid,
 } = require('../middleware/userValidation');
 const { registerValidation } = require('../middleware/auth');
 
-router.get('/api/v1/getAllUsers', isLoggedIn, isAmin, getAllUsers);
+router.get('/api/v1/getAllUsers', isLoggedIn, isAdmin, getAllUsers);
 
 router.get(
   '/api/v1/getUserById/:userId',
@@ -45,11 +45,11 @@ router.patch(
 router.delete(
   '/api/v1/deleteManyUsers',
   isLoggedIn,
-  isAmin,
+  isAdmin,
   deleteManyIfValid,
   deleteManyUsers
 );
 
-router.patch('/api/v1/updateManyUsers', updateManyUsers);
+router.patch('/api/v1/updateManyUsers', isLoggedIn, isAdmin, updateManyUsers);
 
 module.exports = router;
