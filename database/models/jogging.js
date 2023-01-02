@@ -98,13 +98,3 @@ exports.bulkUpdate = async (data) => {
 
   return result;
 };
-// [
-//   {
-//   "distance": 3000,
-//   "time": {
-//     "hours": 3,
-//     "minutes": 45,
-//     "seconds": 23
-//   },
-//   "id": 64
-// },

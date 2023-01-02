@@ -5,7 +5,7 @@ const {
   getUserById,
   deleteUserById,
   updateUserById,
-  deleteMany,
+  bulkDelete,
 } = require('../database/models/user');
 
 exports.getAllUsers = asyncHandler(async (req, res, next) => {
@@ -44,16 +44,25 @@ exports.updateUserById = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: user });
 });
 
-exports.deleteManyUsers = asyncHandler(async (req, res, next) => {
-  const users = await deleteMany(req.body);
+exports.deleteManyUsers = asyncHandler(async (req, res) => {
+  const users = await bulkDelete(req.user);
 
-  let counter = 0;
-  users.forEach((el) => {
-    if (!el.length) counter++;
+  res.status(200).json({
+    success: true,
+    statusCode: 204,
+    data: [
+      {
+        existedUsers: users.exist,
+        length: users.exist.length,
+        message: 'Deleted users.',
+      },
+      {
+        notExistedUsers: users.notExist,
+        length: users.notExist.length,
+        message: `Not Deleted users.`,
+      },
+    ],
   });
-  if (counter === 3) return next(new httpErrors(404, 'Not Found.'));
-
-  res.status(200).json({ success: true, statusCode: 204, data: users });
 });
 
 exports.updateManyUsers = asyncHandler(async (req, res) => {

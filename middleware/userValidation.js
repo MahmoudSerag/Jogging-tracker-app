@@ -10,7 +10,7 @@ exports.isLoggedIn = asyncHandler(async (req, res, next) => {
   next();
 });
 
-exports.isAmin = asyncHandler(async (req, res, next) => {
+exports.isAdmin = asyncHandler(async (req, res, next) => {
   const decodedToken = await decodeToken(req, res, next);
 
   if (!decodedToken.isAdmin) return next(new httpErrors(403, 'Forbidden'));
@@ -69,6 +69,15 @@ exports.deleteManyIfValid = asyncHandler(async (req, res, next) => {
         )
       );
   });
+
+  let usersIds = [];
+  req.body.forEach((el) => {
+    usersIds.push(Math.floor(el));
+  });
+
+  const uniqueUsers = [...new Set(usersIds)];
+
+  req.user = { ids: uniqueUsers };
 
   next();
 });
