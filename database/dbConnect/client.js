@@ -1,12 +1,12 @@
-const { Pool } = require('pg');
+const { Client } = require('pg');
 const { config } = require('../../config/env');
 
-const pool = new Pool({
+const client = new Client({
   user: config.user,
   host: config.host,
-  database: config.currentDatabase,
+  database: config.defaultDatabase,
   password: config.password,
   port: config.databasePort,
 });
 
-module.exports = pool;
+module.exports = client;

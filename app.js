@@ -1,11 +1,14 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const { config } = require('./config/env');
+const { createDB } = require('./database/dbConnect/createDB');
+const { createTables } = require('./database/dbConnect/createTables');
 const { connectAsPool } = require('./database/dbConnect/dbConnection');
+const { errorHandler } = require('./middleware/errorHandling');
 const auth = require('./routes/auth');
 const user = require('./routes/user');
 const jogging = require('./routes/jogging');
-const { errorHandler } = require('./middleware/errorHandling');
-const cookieParser = require('cookie-parser');
+
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
@@ -13,7 +16,11 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-connectAsPool();
+(async () => {
+  await createDB();
+  await createTables();
+  await connectAsPool();
+})();
 
 app.use(auth);
 app.use(user);
