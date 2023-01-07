@@ -18,7 +18,7 @@ exports.loginValidation = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
   let admin = '';
 
-  if (Object.keys(req.cookies).length !== 0)
+  if (req.cookies && req.cookies.token)
     return next(new httpErrors(400, `Already logged in.`));
 
   const user = await signIn(email);

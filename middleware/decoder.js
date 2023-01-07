@@ -1,4 +1,4 @@
-const { verifyJWT } = require('./jwt');
+const { verifyJWT } = require('../utils/jwt');
 const httpErrors = require('http-errors');
 
 exports.decodeToken = async (req, res, next) => {

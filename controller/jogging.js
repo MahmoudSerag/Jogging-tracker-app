@@ -14,7 +14,7 @@ const { decodeToken } = require('../middleware/decoder');
 exports.createJogging = asyncHandler(async (req, res, next) => {
   const jogging = await addNewJogging(req.user);
 
-  if (!jogging.length) return next(new httpErrors(404, 'Jogging Not Found.'));
+  if (!jogging.length) return next(new httpErrors(500, 'Server Error.'));
 
   res.status(201).json({ success: true, data: jogging });
 });

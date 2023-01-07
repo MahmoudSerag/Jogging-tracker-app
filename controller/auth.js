@@ -1,7 +1,7 @@
 const httpErrors = require('http-errors');
 const asyncHandler = require('../middleware/async');
 const { signUp } = require('../database/models/auth');
-const { createJWT } = require('../middleware/jwt');
+const { createJWT } = require('../utils/jwt');
 const { config } = require('../config/env');
 
 exports.register = asyncHandler(async (req, res, next) => {

@@ -4,6 +4,10 @@
 
 [DESCRIPTION](https://docs.google.com/document/d/1-_Ur_6xM7_Cp712ZpBJVIo30CfjlvCc26-7unL5eJIw/edit)
 
+## API Documentation
+
+[Here](https://mahmoudserag.docs.apiary.io/)
+
 ## Local Setup
 
 1. Install Node.js
@@ -29,6 +33,7 @@ git clone <https://github.com/MahmoudSerag/jogging-tracker-app.git>
 ## Environment Variables
 
 ```
+
 exports.config = {
   serverPort: int, { example: 3000 },
   JWT_privateKey: string, { example: ' hdasjkdhksajdhska4565@#@$!' },
