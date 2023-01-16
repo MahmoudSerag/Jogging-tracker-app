@@ -1,7 +1,7 @@
 {
   "name": "postgres",
   "version": "1.0.0",
-  "description": "",
+  "description": "An automatic stopwatch run tracker that users used to track their running or jogging. Built with JavaScript, Node.js, Express.js, and PostgreSQL. Worked with JWT for authorization. Wrote the API documentation using Apiary.",
   "main": "app.js",
   "scripts": {
     "lint": "eslint ./",
@@ -13,19 +13,14 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
-    "date-fns": "^2.29.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "http-error": "^0.0.6",
     "http-errors": "^2.0.0",
     "joi": "^17.7.0",
     "jsonwebtoken": "^9.0.0",
-    "morgan": "^1.10.0",
-    "path": "^0.12.7",
     "pg": "^8.8.0"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
     "eslint": "^8.30.0",
     "nodemon": "^2.0.20"
   }
