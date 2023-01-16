@@ -1,5 +1,5 @@
 {
-  "name": "postgres",
+  "name": "Jogging-tracker",
   "version": "1.0.0",
   "description": "An automatic stopwatch run tracker that users used to track their running or jogging. Built with JavaScript, Node.js, Express.js, and PostgreSQL. Worked with JWT for authorization. Wrote the API documentation using Apiary.",
   "main": "app.js",
