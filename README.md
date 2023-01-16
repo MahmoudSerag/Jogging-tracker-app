@@ -1,6 +1,6 @@
 # joggingtracker-APP
 
-An automatic stopwatch run tracker that users used to track their running or jogging. Built with JavaScript, Node.js, Express.js, and PostgreSQL. Worked with JWT for authorization. Wrote the API documentation using Apiary.
+An automatic stopwatch run tracker that users used to track their running or jogging. Built with JavaScript, Node.js, Express.js, and PostgreSQL. Worked with JWT for authorization. Wrote the API documentation using Apiary and deployed it on render.com
 
 ## Database && APIs
 
